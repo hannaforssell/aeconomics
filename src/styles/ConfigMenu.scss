@@ -1,0 +1,22 @@
+.config-menu-container {
+  
+  .config-menu {
+    //border: 1px solid darkcyan;
+    padding-left: 20px;
+    display: flex;
+    gap: 30px;
+    font-size: 1rem;
+    font-weight: 500;
+
+    .config-menu-categories {
+      font-size: 1rem;
+      font-weight: 500;
+      display: grid;
+      grid-template-columns: 140px 140px 140px;
+      grid-template-rows: 25px 25px 25px;
+      column-gap: 0px;
+      row-gap: 10px;
+      justify-items: start;
+    }
+  }
+}
