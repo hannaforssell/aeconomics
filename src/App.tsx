@@ -5,17 +5,17 @@ import { ConfigMenu } from './components/ConfigMenu';
 import { useState } from 'react';
 
 function App() {
-  const [useBestPath, setUseBestPath] = useState<boolean>(false);
+  const [debugMode, setDebugMode] = useState<boolean>(false);
 
   return (
     <>
       <Header />
       <ConfigMenu
-        useBestPath={useBestPath}
-        setUseBestPath={setUseBestPath}
+        debugMode={debugMode}
+        setDebugMode={setDebugMode}
       />
       <RecipeCardCollection
-        useBestPath={useBestPath}
+        debugMode={debugMode}
       />
     </>
   )

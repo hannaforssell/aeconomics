@@ -7,7 +7,7 @@ import * as itemNameService from './services/itemNameService.ts';
 import * as recipeService from './services/recipeService.ts';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-run();
+//run();
 await itemNameService.init();
 await recipeService.init();
 

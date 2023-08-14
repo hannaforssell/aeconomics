@@ -3,11 +3,11 @@ import { RecipeCard } from './RecipeCard';
 import { useEffect, useState } from 'react';
 import { getRecipes } from '../services/recipeService';
 
-interface RecipeCardCollectionProps {
-  useBestPath: boolean;
+interface IRecipeCardCollectionProps {
+  debugMode: boolean;
 }
 
-export const RecipeCardCollection = (props: RecipeCardCollectionProps) => {
+export const RecipeCardCollection = (props: IRecipeCardCollectionProps) => {
   const [, setTime] = useState(new Date());
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const RecipeCardCollection = (props: RecipeCardCollectionProps) => {
     return <RecipeCard
       key={recipe.uniqueName + recipe.city}
       recipe={recipe}
-      useBestPath={props.useBestPath}
+      debugMode={props.debugMode}
     />
   })
 
