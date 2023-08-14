@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { allCategories, categoriesToShow, defaultIgnoreCategories } from '../services/configService';
+import { allCategories, categoriesToShow } from '../services/configService';
 
 export const ConfigCategories = () => {
   const [checkedState, setCheckedState] = useState<boolean[]>(
-    Array.from(allCategories).map((category) => !defaultIgnoreCategories.has(category))
+    Array.from(allCategories).map((category) => categoriesToShow.has(category))
   );
-  const categoryHTML: JSX.Element[] = [];
 
   const handleCategoryChange = (selectedCategory: string, position: number) => {
     const updatedCheckedState = checkedState.map((item, index) => {
@@ -21,28 +20,22 @@ export const ConfigCategories = () => {
     }
   }
 
-  let index = 0;
-
-  for (const category of allCategories) {
-    const localIndex = index;
-    categoryHTML.push(
-      <label key={category}>
-        <input
-          type="checkbox"
-          name="category"
-          checked={checkedState[localIndex]}
-          onChange={() => handleCategoryChange(category, localIndex)}
-        />
-        <span> {category.charAt(0).toUpperCase() + category.slice(1)}</span>
-      </label>
-    )
-    index++;
-  }
-
   return (
     <div className="lead text-body-secondary config-menu-child">
       <h3>Categories</h3>
-      {categoryHTML.sort((a, b) => String(a.key).localeCompare(String(b.key)))}
+      {allCategories.map((category, index) => {
+        return (
+          <label key={category}>
+            <input
+              type="checkbox"
+              name="city"
+              checked={checkedState[index]}
+              onChange={() => handleCategoryChange(category, index)}
+            />
+            <span> {category.charAt(0).toUpperCase() + category.slice(1)}</span>
+          </label>
+        )
+      })}
     </div>
   );
 }
