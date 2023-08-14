@@ -1,23 +1,37 @@
-import { cities } from '../services/recipeService';
-import '../styles/ConfigCities.scss'
+import { useState } from 'react';
+import { allCities, citiesToShow } from '../services/configService';
 
 export const ConfigCities = () => {
+  const [checkedState, setCheckedState] = useState(
+    new Array(allCities.length).fill(true)
+);
 
-  const handleCityChange = (city: string) => {
-    console.log(city);
+
+  const handleCityChange = (selectedCity: string, position: number) => {
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item
+    );
+
+    setCheckedState(updatedCheckedState);
+
+    if (!checkedState[position]) {
+      citiesToShow.add(selectedCity);
+    } else {
+      citiesToShow.delete(selectedCity);
+    }
   }
 
   return (
-    <div className="lead text-body-secondary config-menu-categories">
+    <div className="lead text-body-secondary config-menu-child">
       <h3>Cities</h3>
-      {cities.map((city) => {
+      {allCities.map((city, index) => {
         return (
           <label key={city}>
             <input
               type="checkbox"
               name="city"
-              checked={false}
-              onChange={() => handleCityChange(city)}
+              checked={checkedState[index]}
+              onChange={() => handleCityChange(city, index)}
             />
             <span> {city}</span>
           </label>

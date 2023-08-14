@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { allCategories, categoriesToShow, defaultIgnoreCategories } from '../services/configService';
-import '../styles/ConfigCategories.scss'
 
 export const ConfigCategories = () => {
   const [checkedState, setCheckedState] = useState<boolean[]>(
@@ -41,7 +40,7 @@ export const ConfigCategories = () => {
   }
 
   return (
-    <div className="lead text-body-secondary config-menu-categories">
+    <div className="lead text-body-secondary config-menu-child">
       <h3>Categories</h3>
       {categoryHTML.sort((a, b) => String(a.key).localeCompare(String(b.key)))}
     </div>

@@ -1,14 +1,13 @@
 .config-menu-container {
   
   .config-menu {
-    //border: 1px solid darkcyan;
     padding-left: 20px;
     display: flex;
     gap: 30px;
     font-size: 1rem;
     font-weight: 500;
 
-    .config-menu-categories {
+    .config-menu-child {
       font-size: 1rem;
       font-weight: 500;
       display: grid;

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Recipe } from "../models/Recipe";
 import { getItemPrice } from "./pricePointService";
-import { categoriesToShow } from "./configService";
+import { allCities, categoriesToShow, citiesToShow } from "./configService";
 
 export interface CraftableItem {
   '@uniquename': string;
@@ -23,15 +23,6 @@ interface CraftingResources {
 
 const recipes: Recipe[] = [];
 
-export const cities: string[] = [
-  'Caerleon',
-  'Bridgewatch',
-  'Lymhurst',
-  'Thetford',
-  'Martlock',
-  'Fort Sterling'
-];
-
 export const init = async () => {
   let index = 0;
   await axios.get<CraftableItem[]>('items.json')
@@ -41,7 +32,7 @@ export const init = async () => {
           if (!Array.isArray(item.craftingrequirements)) {
             item.craftingrequirements = [item.craftingrequirements];
           }
-          for (const city of cities) {
+          for (const city of allCities) {
             recipes.push(new Recipe(item, city, index++));
           }
         }
@@ -55,6 +46,7 @@ export const getRecipes = (count: number): Recipe[] => {
 
   const validRecipes = recipes
     .filter((r) => categoriesToShow.has(r.category))
+    .filter((r) => citiesToShow.has(r.city))
     .filter((r) => r.price > 0)
     .filter((r) => r.hasValidPath())
     .filter((r) => r.returnRatio < 5);
