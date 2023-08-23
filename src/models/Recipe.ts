@@ -10,7 +10,7 @@ export class Recipe {
   city: string;
   bestPath: RecipePath | undefined;
   recipePaths: RecipePath[] = [];
-  returnRatio = 0;
+  returnOnInvestment = 0;
   category: string;
   subCategory: string;
 

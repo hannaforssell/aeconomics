@@ -2,6 +2,7 @@ import axios from "axios";
 import { Recipe } from "../models/Recipe";
 import { getItemPrice } from "./pricePointService";
 import { allCities, categoriesToShow, citiesToShow } from "./configService";
+import { getReturnRatio } from "./bonusService";
 
 export interface CraftableItem {
   '@uniquename': string;
@@ -49,7 +50,7 @@ export const getRecipes = (count: number): Recipe[] => {
     .filter((r) => citiesToShow.has(r.city))
     .filter((r) => r.price > 0)
     .filter((r) => r.hasValidPath())
-    .filter((r) => r.returnRatio < 5);
+    .filter((r) => r.returnOnInvestment < 5);
 
   const sortedRecipes = validRecipes.sort((a, b) => (b.price * (b.bestPath?.amountCrafted ?? 1) - (b.bestPath?.price ?? Number.MAX_VALUE)) - (a.price * (a.bestPath?.amountCrafted ?? 1) - (a.bestPath?.price ?? Number.MAX_VALUE)));
   
@@ -60,6 +61,7 @@ export const getRecipes = (count: number): Recipe[] => {
 const assignPrices = () => {
   for (const recipe of recipes) {
     [recipe.price, recipe.pricePoints] = getItemPrice(recipe.uniqueName, recipe.city);
+    //recipe.returnRatio = getReturnRatio(recipe.subCategory, recipe.city);
 
     let bestPathPrice = Number.MAX_VALUE;
     for (const recipePath of recipe.recipePaths) {
@@ -73,7 +75,7 @@ const assignPrices = () => {
         bestPathPrice = recipePath.price;
         recipe.bestPath = recipePath;
 
-        recipe.returnRatio = (recipe.price * recipePath.amountCrafted) / recipePath.price;
+        recipe.returnOnInvestment = (recipe.price * recipePath.amountCrafted) / recipePath.price;
       }
     }
   }

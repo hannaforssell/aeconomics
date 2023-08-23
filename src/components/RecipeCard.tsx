@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import '../styles/CraftableItem.scss'
 import { Toast } from 'react-bootstrap';
 import { RecipeCardPaths } from './RecipeCardPaths';
@@ -19,7 +18,7 @@ export const RecipeCard = (props: IRecipeCardProps) => {
           <p>City: {props.recipe.city}</p>
           <p>Category: {props.recipe.category}</p>
           <p>Sell price: {shortNum(props.recipe.price)} silver</p>
-          <p>Return ratio: {props.recipe.returnRatio}</p>
+          <p>Return on investment: {props.recipe.returnOnInvestment}</p>
           <small className="text-body-secondary">{props.recipe.pricePoints.map((p, i) => {
             return <div key={i}>
               {JSON.stringify(p)}
